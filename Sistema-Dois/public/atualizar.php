@@ -1,17 +1,18 @@
 <?php
 include ("../infra/conexao.php");
 
-if (isset($_POST['cadastrar'])) {
+if (isset($_POST['atualizar'])) {
 
+    $id = $_POST['id'];
     $nome = $_POST['nome'];
     $categoria = $_POST['categoria'];
     $preco = $_POST['preco'];
     $estoque = $_POST['estoque'];
 
-    $sql = 'INSERT INTO produtos (nome, categoria, preco, estoque) VALUES (?,?,?,?)';
+    $sql = 'UPDATE usuarios SET nome = ?, email = ? WHERE id = ?';
     $stmt = $conn->prepare($sql);
 
-    $stmt->bind_param("ssii", $nome, $categoria, $preco, $estoque);
+    $stmt->bind_param("ssi", $nome, $email, $id);
     $stmt->execute();
 
     header('Location: index.php');
