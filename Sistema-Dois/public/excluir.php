@@ -11,6 +11,6 @@ if (isset($_GET['excluir'])) {
     $stmt->bind_param("i", $id);
     $stmt->execute();
 
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }

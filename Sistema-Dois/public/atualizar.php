@@ -15,6 +15,6 @@ if (isset($_POST['atualizar'])) {
     $stmt->bind_param("ssi", $nome, $email, $id);
     $stmt->execute();
 
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }

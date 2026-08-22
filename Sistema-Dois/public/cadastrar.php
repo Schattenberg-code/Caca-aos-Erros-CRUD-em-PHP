@@ -11,9 +11,9 @@ if (isset($_POST['cadastrar'])) {
     $sql = 'INSERT INTO produtos (nome, categoria, preco, estoque) VALUES (?,?,?,?)';
     $stmt = $conn->prepare($sql);
 
-    $stmt->bind_param("ssii", $nome, $categoria, $preco, $estoque);
+    $stmt->bind_param("ssdi", $nome, $categoria, $preco, $estoque);
     $stmt->execute();
 
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }

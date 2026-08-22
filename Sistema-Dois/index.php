@@ -1,70 +1,139 @@
 <?php
 include ("infra/conexao.php");
+$sql = "SELECT id, nome, categoria, preco, estoque
+        FROM produtos
+        ORDER BY id DESC";
 
-$sql = "SELECT id, nome, email FROM usuarios ORDER BY id DESC";
 $resultado = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
-    <title>CRUD de Usuários</title>
+
+    <title>CRUD de Produtos</title>
+
 </head>
 
 <body>
 
-    <h1>Cadastro de Usuários</h1>
+    <h1>Cadastro de Produtos</h1>
 
-    <form method="POST">
+
+    <!-- ------------------------------
+         FORMULÁRIO DE CADASTRO
+    ------------------------------ -->
+
+    <form action="public/cadastrar.php" method="POST">
 
         <label>Nome:</label>
-        <input type="text" name="nome" required>
+
+        <input
+            type="text"
+            name="nome"
+            required
+        >
+
         <br><br>
 
-        <label>E-mail:</label>
-        <input type="email" name="email" required>
+        <label>Categoria:</label>
+
+        <input
+            type="text"
+            name="categoria"
+            required
+        >
+
+        <br><br>
+
+        <label>Preço:</label>
+
+        <input
+            type="number"
+            step="0.01"
+            name="preco"
+            required
+        >
+
+        <br><br>
+
+        <label>Estoque:</label>
+
+        <input
+            type="number"
+            name="estoque"
+            required
+        >
+
         <br><br>
 
         <button type="submit" name="cadastrar">
-            Cadastrar
+            Cadastrar Produto
         </button>
 
     </form>
 
-    <h2>Usuários Cadastrados</h2>
 
-    <table border="1">
+    <br>
+
+
+    <!-- ------------------------------
+         LISTAGEM
+    ------------------------------ -->
+
+    <h2>Produtos cadastrados</h2>
+
+    <table border="1" cellpadding="5">
+
         <tr>
+
             <th>ID</th>
             <th>Nome</th>
-            <th>E-mail</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Estoque</th>
             <th>Ações</th>
+
         </tr>
 
-        <?php while ($usuario = $resultado->fetch_assoc()) { ?>
+        <?php while ($produto = $resultado->fetch_assoc()) { ?>
+
             <tr>
 
                 <td>
-                    <?= $usuario['id'] ?>
+                    <?= $produto['id'] ?>
                 </td>
 
                 <td>
-                    <?= $usuario['nome'] ?>
+                    <?= $produto['nome'] ?>
                 </td>
 
                 <td>
-                    <?= $usuario['email'] ?>
+                    <?= $produto['categoria'] ?>
                 </td>
 
                 <td>
-                    <a href="index.php?excluir=<?= $usuario['id'] ?>">
+                    R$ <?= number_format($produto["preco"], 2, ',', '.') ?>
+                </td>
+
+                <td>
+                    <?= $produto['estoque'] ?>
+                </td>
+
+                <td>
+
+                    <a href="public/excluir.php?excluir=<?= $produto['id'] ?>">
                         Excluir
                     </a>
+
                 </td>
 
             </tr>
+
         <?php } ?>
 
     </table>
